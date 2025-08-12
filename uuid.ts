@@ -220,3 +220,86 @@ type Valid = IHexStringOfLength6<'abc-123'>
 type Invalid1 = IHexStringOfLength6<'abc'>
 type Invalid2 = IHexStringOfLength6<'abx-123'>
 type Invalid3 = IHexStringOfLength6<'abc123'>
+
+
+
+
+// --
+type UUIDVersion = StringToUnion<'12345678'>;
+
+export type UUID_V1<S extends string> = UUID<S, '1'>;
+export type UUID_V2<S extends string> = UUID<S, '2'>;
+export type UUID_V3<S extends string> = UUID<S, '3'>;
+export type UUID_V4<S extends string> = UUID<S, '4'>;
+export type UUID_V5<S extends string> = UUID<S, '5'>;
+export type UUID_V6<S extends string> = UUID<S, '6'>;
+export type UUID_V7<S extends string> = UUID<S, '7'>;
+export type UUID_V8<S extends string> = UUID<S, '8'>;
+
+type UUID<
+  S extends string,
+  Ver extends UUIDVersion
+> = S extends `${infer G1}-${infer G2}-${infer V}${infer G3}-${
+  | '8'
+  | '9'
+  | 'a'
+  | 'b'}${infer G4}-${infer G5}`
+  ? V extends Ver
+    ? Is8HexChars<G1> extends true
+      ? Is4HexChars<G2> extends true
+        ? Is3HexChars<G3> extends true
+          ? Is3HexChars<G4> extends true
+            ? Is12HexChars<G5> extends true
+              ? S
+              : never
+            : never
+          : never
+        : never
+      : never
+    : never
+  : never;
+
+// utility types
+type Is8HexChars<S extends string> = IsHexCharsOfLength<S, 8>;
+type Is4HexChars<S extends string> = IsHexCharsOfLength<S, 4>;
+type Is3HexChars<S extends string> = IsHexCharsOfLength<S, 3>;
+type Is12HexChars<S extends string> = IsHexCharsOfLength<S, 12>;
+
+type IsHexCharsOfLength<
+  S extends string,
+  Len extends number
+> = AllHex<S> extends true
+  ? IsStringOfLength<S, Len> extends true
+    ? true
+    : false
+  : false;
+
+type AllHex<T extends string> = All<T, Hex>;
+
+type Hex = StringToUnion<'abcdef1234567890'>;
+
+type All<
+  T extends string,
+  Chars extends unknown
+> = T extends `${infer First}${infer Rest}`
+  ? First extends Chars
+    ? Rest extends ''
+      ? true // 退出条件：剩余部分为空字符串，说明遍历到了结尾
+      : All<Rest, Chars> // 否则继续递归遍历剩余字母
+    : false
+  : false;
+
+type StringToUnion<T extends string> = T extends `${infer First}${infer Rest}`
+  ? First | StringToUnion<Rest>
+  : never;
+
+type IsStringOfLength<
+  S extends string,
+  Length extends number
+> = LengthOfString<S> extends Length ? true : false;
+
+type LengthOfString<S extends string> = StringToTuple<S>['length'];
+
+type StringToTuple<T extends string> = T extends `${infer First}${infer Rest}`
+  ? [First, ...StringToTuple<Rest>]
+  : [];
