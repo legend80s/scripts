@@ -1,0 +1,215 @@
+{
+  // Place your snippets for typescript here. Each snippet is defined under a snippet name and has a prefix, body and
+  // description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+  // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the
+  // same ids are connected.
+  // Example:
+  // "Print to console": {
+  // 	"prefix": "log",
+  // 	"body": [
+  // 		"console.log('$1');",
+  // 		"$2"
+  // 	],
+  // 	"description": "Log output to console"
+  // }
+
+  "extends window interface": {
+		"prefix": "window interface",
+		"body": [
+      "declare global {",
+      "  interface Window {",
+      "    // AlipayJSBridge: typeof import('@alipay/bridgex/types/alipay').default;",
+      "    // Tracert: typeof import('@alipay/ant-log-tracert-ts').default;",
+      "    // yuyanMonitor: typeof import('@alipay/yuyan-monitor-web').default;",
+      "  }",
+      "}",
+		],
+		"description": "window interface"
+  },
+
+  "namespace": {
+    "prefix": "namespace",
+    "body": "namespace $1",
+    "description": "namespace"
+  },
+
+  "eslint-disable file": {
+    "prefix": "/* eslint-disable import/no-cycle */",
+    "body": "/* eslint-disable import/no-cycle */",
+    "description": "/* eslint-disable import/no-cycle */"
+  },
+
+  "// prettier-ignore": {
+    "prefix": "// prettier-ignore",
+    "body": "// prettier-ignore",
+    "description": "// prettier-ignore"
+  },
+
+  "enum": {
+		"prefix": "enum",
+		"body": [
+      "enum $1Enum {",
+      "  $2 = '$2',",
+      "  $3 = '$3',",
+      "}",
+		],
+		"description": "enum"
+  },
+
+  "@alipay/limo-core/esm/common/$1": {
+    "prefix": "@alipay/limo-core",
+    "body": "@alipay/limo-core/esm/common/$1",
+  },
+
+  "expectFunc": {
+    "prefix": "expect function to throw",
+    "body": [
+      "expect(() => {",
+      "  $1;",
+      "}).to.throw(${2://});",
+    ]
+  },
+
+  "alert ap": {
+    "prefix": "alert",
+    "body": "ap.alert({ content: JSON.stringify(${1:payload}, null, 2) });",
+    "description": "ap.alert for debugging"
+	},
+	"toast ap": {
+    "prefix": "toast",
+    "body": "ap.showToast({ content: JSON.stringify(${1:payload}, null, 2) });",
+    "description": "ap.showToast for debugging"
+	},
+
+  "const startAt": {
+		"prefix": "$ const start",
+		"body": [
+			"const startAt = Date.now();",
+		],
+		"description": "const start"
+  },
+  
+  "const stopAt": {
+		"prefix": "$ const stop",
+		"body": [
+			"const stopAt = Date.now();",
+		],
+		"description": "const stop"
+	},
+
+  "string interpolation": {
+		"prefix": "$ string interpolation",
+		"body": [
+			"${$1}",
+		],
+		"description": "string interpolation"
+	},
+
+  "ts interface": {
+    "prefix": "interface",
+    "body": [
+      "interface I$1 {",
+      "  ${2:key}: ${3:string};",
+      "}",
+    ],
+    "description": "TS Interface Template"
+  },
+
+  "alert json": {
+    "prefix": "alert json",
+    "body": "my.alert({ content: '$1' });",
+    "description": "my.alert json for debugging"
+  },
+  "alert": {
+    "prefix": "alert",
+    "body": "my.alert({ content: JSON.stringify(${1:payload}, null, 2) });",
+    "description": "my.alert for debugging"
+  },
+
+  "toast json": {
+    "prefix": "toast",
+    "body": "my.showToast({ content: JSON.stringify({ $1, }, null, 2) });",
+    "description": "my.toast for debugging"
+  },
+  "toast": {
+    "prefix": "toast",
+    "body": "my.showToast({ content: '$1' });",
+    "description": "my.toast for debugging"
+  },
+
+  "Promise": {
+    "prefix": "Promise",
+    "body": "Promise((resolve, reject) => {$1})",
+    "description": "new Promise"
+  },
+
+  "Promise-type": {
+    "prefix": "Promise",
+    "body": "Promise<$1>",
+    "description": "Promise<$1>"
+  },
+
+  "log-simple": {
+    "prefix": "log-simple",
+    "body": ["console.log('$1');"],
+    "description": "console.log('$1')"
+  },
+  "log-verbose": {
+    "prefix": "log-verbose",
+    "body": ["console.log('$1:', $1);"],
+    "description": "console.log('$1:', $1)"
+  },
+
+  "describe": {
+    "prefix": "describe",
+    "body": [
+      "describe('$1', () => {",
+      "  $2",
+      "});"
+    ],
+    "description": "describe your test"
+  },
+  "it mocha": {
+    "prefix": "it mocha",
+    "body": [
+      "it('$1', () => {",
+      "  const input = $2;",
+      "  const actual = $3(input);",
+      "  const expected = $4;",
+      "",
+      "  deepStrictEqual(actual, expected);",
+      "});"
+    ],
+    "description": "it your test in mocha"
+  },
+  "it jest": {
+    "prefix": "it jest",
+    "body": [
+      "it('$1', () => {",
+      "  const input = $2;",
+      "  const actual = $3(input);",
+      "  const expected = $4;",
+      "",
+      "  expect(actual).toEqual(expected);",
+      "});"
+    ],
+    "description": "it your test in jest"
+  },
+
+  // vue
+	"mapStateToProps": {
+		"prefix": "mapStateToProps",
+		"body": "mapStateToProps: [\n  '$1',\n],",
+		"description": "mapStateToProps"
+	},
+	"mapActionsToMethods": {
+		"prefix": "mapActionsToMethods",
+		"body": "mapActionsToMethods: [\n  '$1',\n],",
+		"description": "mapActionsToMethods"
+	},
+	"prop-definition": {
+		"prefix": "prop-definition",
+		"body": "{ type: ${1:String}, required: ${2:true}, default: ${3:''} },",
+		"description": "prop-definition"
+	},
+}
